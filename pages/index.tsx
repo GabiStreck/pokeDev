@@ -1,17 +1,25 @@
+import { FC } from 'react'
 import Head from 'next/head'
+import Layout from '@/components/Layout'
 
-export default function Home() {
+interface Props {
+  toggleDarkMode: () => void
+}
+
+const Home: FC<Props> = ({ toggleDarkMode }) => {
   return (
     <>
       <Head>
         <title>PokeDev</title>
-        <meta name="description" content="PokeDev" />
+        <meta name="description" content="Created by Gabriel Streck" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        PokeDev
-      </main>
+      <Layout toggleDarkMode={toggleDarkMode}>
+        <div></div>
+      </Layout>
     </>
   )
 }
+
+export default Home 

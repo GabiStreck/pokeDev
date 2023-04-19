@@ -1,6 +1,19 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from '@/theme';
+import { useDarkMode } from '@/hooks/useDarkMode';
+import '@/styles/globals.css'
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }: AppProps) => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  return (
+    <ThemeProvider theme={theme(isDarkMode)}>
+      <CssBaseline />
+      <Component {...pageProps} toggleDarkMode={toggleDarkMode} />
+    </ThemeProvider>
+  );
+};
+
+export default App;
+
