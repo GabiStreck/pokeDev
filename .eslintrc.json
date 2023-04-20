@@ -2,5 +2,12 @@
   "extends": [
     "./node_modules/standard/eslintrc.json",
     "next/core-web-vitals"
-  ]
+  ],
+  "rules": {
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
+    "react/display-name": "off"
+  }
 }
