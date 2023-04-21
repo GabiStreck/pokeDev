@@ -1,7 +1,8 @@
 import { getApiUrl } from "@/config"
+import { PATHNAME_POKEMON } from "@/constants";
 import { PokemonItem, PokemonList, PokemonParams, PokemonsListParams } from "@/types/pokemonList";
 
-const BASE_URL = getApiUrl('pokemon')
+const BASE_URL = getApiUrl(PATHNAME_POKEMON)
 
 export const getPokemons = async ({ limit, signal, nextPageUrl }: PokemonsListParams)
     : Promise<PokemonList> => {
@@ -32,4 +33,4 @@ export const getPokemon = async ({ id, signal, url }: PokemonParams)
         image: pokemonData['sprites']['other']['dream_world']['front_default'],
         types: pokemonData.types
     };
-} 
+}

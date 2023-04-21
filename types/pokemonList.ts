@@ -7,7 +7,7 @@ export type PokemonItem = {
     types: Type[];
 }
 
-export interface PokemonListResponse {
+export interface ListResponse {
     count: number
     next: string
     previous: any
@@ -25,7 +25,6 @@ export interface PokemonList {
     previous: any
     pokemons: PokemonItem[]
 }
-
 
 export interface PokemonsListParams {
     limit: number;
