@@ -12,18 +12,19 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChipTypeSearch, ContainerSearchInput } from './core';
+import useFilterPokemon from '@/hooks/useFilterPokemon';
 
 function Search() {
-    const [selectedType, setSelectedType] = useState<TypeDetail[]>([]);
     const { types, loading } = useTypes()
-    const handleSelect = (event: any, value: TypeDetail[]) => {
-        if (value) setSelectedType(value)
-    };
+    const {
+        selectedTypes,
+        handleSelectedType,
+        handleClearStore,
+        handleRemoveSelectedType
+    } = useFilterPokemon()
 
-    const handleDeleteChip = (typeToDelete: TypeDetail) => {
-        setSelectedType((prevSelectedType) =>
-            prevSelectedType.filter((type) => type.name !== typeToDelete.name)
-        );
+    const handleSelect = (event: any, value: TypeDetail[]) => {
+        if (value) handleSelectedType(value)
     };
 
     return (
@@ -48,7 +49,7 @@ function Search() {
                     onChange={handleSelect}
                     id='search_types'
                     loading={loading}
-                    value={selectedType}
+                    value={selectedTypes}
                     fullWidth
                     clearOnEscape
                     renderTags={() => null}
@@ -65,11 +66,11 @@ function Search() {
                 />
             </Box>
             <div>
-                {selectedType.map((type) => (
+                {selectedTypes.map((type) => (
                     <ChipTypeSearch
                         key={type.name.trim()}
                         label={capitalize(type.name)}
-                        onDelete={() => handleDeleteChip(type)}
+                        onDelete={() => handleRemoveSelectedType(type)}
                         background={getGradientPokeTypes(type.name)}
                     />
                 ))}
