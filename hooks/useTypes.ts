@@ -8,7 +8,7 @@ interface TypesParams {
     signal: AbortSignal;
 }
 
-const useTypeFilter = () => {
+const useTypes = () => {
     const [types, setTypes] = useState<TypeDetail[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [value, setValue] = useSessionStorage<TypeDetail[] | null>(
@@ -42,4 +42,4 @@ const useTypeFilter = () => {
     return { types, loading };
 };
 
-export default useTypeFilter;
+export default useTypes;

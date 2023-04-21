@@ -39,11 +39,11 @@ const PokemonListItem: FC<Props> = ({ pokemon }) => {
                         </Typography>
                         <ListTypesItem>
                             {pokemon.types.map(item =>
-                                <ChipType label={capitalize(item.type.name)} />
+                                <ChipType label={capitalize(item.type.name)} size='small' />
                             )}
                         </ListTypesItem>
                         <Typography
-                            variant='h2'
+                            variant='h3'
                             fontWeight={600}
                             color={'#ffffff'}
                             component='h2'
