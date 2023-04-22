@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TypeDetail } from '@/types/pokemon';
 import useTypes from '@/hooks/useTypes';
 import { capitalize } from '@/utils/format';
@@ -12,16 +11,15 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChipTypeSearch, ContainerSearchInput } from './core';
-import useFilterPokemon from '@/hooks/useFilterPokemon';
+import useFilterStore from '@/hooks/useFilterStore';
 
 function Search() {
     const { types, loading } = useTypes()
     const {
-        selectedTypes,
+        filters,
         handleSelectedType,
-        handleClearStore,
         handleRemoveSelectedType
-    } = useFilterPokemon()
+    } = useFilterStore()
 
     const handleSelect = (event: any, value: TypeDetail[]) => {
         if (value) handleSelectedType(value)
@@ -49,7 +47,7 @@ function Search() {
                     onChange={handleSelect}
                     id='search_types'
                     loading={loading}
-                    value={selectedTypes}
+                    value={filters}
                     fullWidth
                     clearOnEscape
                     renderTags={() => null}
@@ -66,7 +64,7 @@ function Search() {
                 />
             </Box>
             <div>
-                {selectedTypes.map((type) => (
+                {filters.map((type) => (
                     <ChipTypeSearch
                         key={type.name.trim()}
                         label={capitalize(type.name)}

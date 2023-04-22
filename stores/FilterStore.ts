@@ -1,15 +1,10 @@
 import { RootState } from "@/config-store";
 import { TypeDetail } from "@/types/pokemon";
-import { PokemonList } from "@/types/pokemonList";
+import { PokemonsByFilterType, PokemonState } from "@/types/storeFilters";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface PokemonState {
-    pokemons: PokemonList[];
-    filters: TypeDetail[];
-}
-
 const initialState: PokemonState = {
-    pokemons: [],
+    pokemonByFilter: [],
     filters: [],
 };
 
@@ -17,8 +12,11 @@ export const filterStore = createSlice({
     name: "filters",
     initialState,
     reducers: {
-        setPokemons: (state, action: PayloadAction<PokemonList[]>) => {
-            state.pokemons = action.payload;
+        setPokemonFilters: (state, action: PayloadAction<PokemonsByFilterType[]>) => {
+            state.pokemonByFilter = action.payload;
+        },
+        addPokemonFilters: (state, action: PayloadAction<PokemonsByFilterType>) => {
+            state.pokemonByFilter.push(action.payload);
         },
         setFilter: (state, action: PayloadAction<TypeDetail[]>) => {
             state.filters = action.payload;
@@ -28,12 +26,20 @@ export const filterStore = createSlice({
         },
         clearStore: (state) => {
             state.filters = [];
-            state.pokemons = [];
+            state.pokemonByFilter = [];
         },
     },
 });
 
-export const { setPokemons, setFilter, clearStore, removeTypeInFilters } = filterStore.actions;
+export const {
+    setPokemonFilters,
+    addPokemonFilters,
+    setFilter,
+    clearStore,
+    removeTypeInFilters
+} = filterStore.actions;
+
 export const selectedFilters = (state: RootState) => state.filters.filters;
-export const selectedPokemons = (state: RootState) => state.filters.pokemons;
+export const selectedPokemons = (state: RootState) => state.filters.pokemonByFilter;
+
 export default filterStore.reducer;

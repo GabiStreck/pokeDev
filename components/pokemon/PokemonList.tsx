@@ -1,7 +1,7 @@
-import { Fragment } from 'react'
 import usePokemon from '@/hooks/usePokemon';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import PokemonListItem from './PokemonListItem';
+import { ConteinerLoading } from './core';
 
 const PokemonList = () => {
     const {
@@ -9,21 +9,29 @@ const PokemonList = () => {
         nextPageUrl,
         loading,
         isFetching,
+        loadingFilters,
         lastItemElementRef
     } = usePokemon();
-
     return (
-        <Grid container spacing={2}>
-            {pokemons?.map((pokemon, index) => (
-                <Fragment key={pokemon.id} >
-                    <PokemonListItem pokemon={pokemon} />
-                    {index === pokemons.length - 1 && nextPageUrl ? (
-                        <div ref={lastItemElementRef}></div>
-                    ) : null}
-                </Fragment>
-            ))}
-            {isFetching || loading && <span>loading</span>}
-        </Grid>
+        <>
+            <ConteinerLoading>
+                {loadingFilters ?
+                    <CircularProgress variant='indeterminate' color='error' />
+                    : null
+                }
+            </ConteinerLoading>
+            <Grid container alignContent="stretch" spacing={2}>
+                {pokemons?.map((pokemon, index) => (
+                    <Grid item xs={12} sm={6} md={3} key={`${index}-pokemon-${pokemon.id}`} >
+                        <PokemonListItem pokemon={pokemon} />
+                        {index === pokemons.length - 1 && nextPageUrl ? (
+                            <div ref={lastItemElementRef}></div>
+                        ) : null}
+                    </Grid>
+                ))}
+                {isFetching || loading && <span>loading</span>}
+            </Grid>
+        </>
     );
 };
 

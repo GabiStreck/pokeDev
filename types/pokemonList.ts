@@ -2,6 +2,7 @@ import { Type } from "./pokemon";
 
 export type PokemonItem = {
     id: number;
+    order: number;
     name: string;
     image: string;
     types: Type[];
@@ -15,21 +16,21 @@ export interface ListResponse {
 }
 
 export interface Result {
-    name: string
-    url: string
+    name: string;
+    url: string;
 }
 
 export interface PokemonList {
-    count: number
-    next: string
-    previous: any
-    pokemons: PokemonItem[]
+    count: number;
+    next: string;
+    previous: any;
+    pokemons: PokemonItem[];
 }
 
 export interface PokemonsListParams {
     limit: number;
     signal?: any;
-    nextPageUrl?: string
+    nextPageUrl?: string;
 }
 
 export interface PokemonParams {
@@ -37,3 +38,4 @@ export interface PokemonParams {
     url?: string,
     signal?: any;
 }
+
