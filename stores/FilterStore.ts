@@ -1,32 +1,37 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/config-store";
+import {
+    FILTERS_KEY,
+    FILTERS_STORE_KEY,
+    POKEMON_BY_FILTER_KEY
+} from "@/constants";
 import { TypeDetail } from "@/types/pokemon";
 import { PokemonsByFilterType, PokemonState } from "@/types/storeFilters";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: PokemonState = {
-    pokemonByFilter: [],
-    filters: [],
+export const initialState: PokemonState = {
+    [FILTERS_KEY]: [],
+    [POKEMON_BY_FILTER_KEY]: []
 };
 
 export const filterStore = createSlice({
-    name: "filters",
+    name: FILTERS_STORE_KEY,
     initialState,
     reducers: {
         setPokemonFilters: (state, action: PayloadAction<PokemonsByFilterType[]>) => {
-            state.pokemonByFilter = action.payload;
+            state[POKEMON_BY_FILTER_KEY] = action.payload;
         },
         addPokemonFilters: (state, action: PayloadAction<PokemonsByFilterType>) => {
-            state.pokemonByFilter.push(action.payload);
+            state[POKEMON_BY_FILTER_KEY].push(action.payload);
         },
         setFilter: (state, action: PayloadAction<TypeDetail[]>) => {
-            state.filters = action.payload;
+            state[FILTERS_KEY] = action.payload;
         },
         removeTypeInFilters: (state, action: PayloadAction<TypeDetail>) => {
-            state.filters = state.filters.filter(type => type.name !== action.payload.name);
+            state[FILTERS_KEY] = state[FILTERS_KEY].filter(type => type.name !== action.payload.name);
         },
         clearStore: (state) => {
-            state.filters = [];
-            state.pokemonByFilter = [];
+            state[FILTERS_KEY] = [];
+            state[POKEMON_BY_FILTER_KEY] = [];
         },
     },
 });
@@ -39,7 +44,7 @@ export const {
     removeTypeInFilters
 } = filterStore.actions;
 
-export const selectedFilters = (state: RootState) => state.filters.filters;
-export const selectedPokemons = (state: RootState) => state.filters.pokemonByFilter;
+export const selectedFilters = (state: RootState) => state[FILTERS_STORE_KEY][FILTERS_KEY];
+export const selectedPokemons = (state: RootState) => state[FILTERS_STORE_KEY][POKEMON_BY_FILTER_KEY];
 
 export default filterStore.reducer;

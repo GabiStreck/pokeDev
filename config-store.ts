@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filterStore from "@/stores/FilterStore";
+import { FILTERS_STORE_KEY } from "./constants";
 
 export const store = configureStore({
     reducer: {
-        filters: filterStore,
+        [FILTERS_STORE_KEY]: filterStore,
     },
 });
 

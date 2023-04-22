@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { TypeDetail } from '@/types/pokemon';
-import { PokemonItem } from '@/types/pokemonList';
 import {
     setFilter,
     setPokemonFilters,

@@ -1,3 +1,4 @@
+import { FILTERS_KEY, POKEMON_BY_FILTER_KEY } from "@/constants";
 import { TypeDetail } from "./pokemon";
 import { PokemonItem } from "./pokemonList";
 
@@ -7,6 +8,6 @@ export type PokemonsByFilterType = {
 }
 
 export interface PokemonState {
-    pokemonByFilter: PokemonsByFilterType[];
-    filters: TypeDetail[];
+    [POKEMON_BY_FILTER_KEY]: PokemonsByFilterType[];
+    [FILTERS_KEY]: TypeDetail[];
 }

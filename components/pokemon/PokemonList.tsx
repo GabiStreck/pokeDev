@@ -16,7 +16,7 @@ const PokemonList = () => {
     return (
         <>
             <ConteinerLoading>
-                {loadingFilters ?
+                {loadingFilters && pokemons.length > 0 ?
                     <CircularProgress variant='indeterminate' color='error' />
                     : null
                 }
@@ -30,7 +30,7 @@ const PokemonList = () => {
                         ) : null}
                     </Grid>
                 ))}
-                {isFetching || loading && <PokemonListLoading />}
+                {isFetching || loading || loadingFilters && <PokemonListLoading />}
             </Grid>
         </>
     );

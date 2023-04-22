@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { store } from '@/config-store';
 import { theme } from '@/theme';
 import { useDarkMode } from '@/hooks/useDarkMode';
