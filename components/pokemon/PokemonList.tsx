@@ -2,6 +2,7 @@ import usePokemon from '@/hooks/usePokemon';
 import { CircularProgress, Grid } from '@mui/material';
 import PokemonListItem from './PokemonListItem';
 import { ConteinerLoading } from './core';
+import { PokemonListLoading } from './PokemonListLoading';
 
 const PokemonList = () => {
     const {
@@ -29,7 +30,7 @@ const PokemonList = () => {
                         ) : null}
                     </Grid>
                 ))}
-                {isFetching || loading && <span>loading</span>}
+                {isFetching || loading && <PokemonListLoading />}
             </Grid>
         </>
     );
