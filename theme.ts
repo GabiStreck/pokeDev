@@ -14,7 +14,7 @@ export const theme = (isDarkMode: boolean) => createTheme({
 });
 
 const gradientPokemonTypes = {
-    normal: "linear-gradient(45deg, rgba(227, 218, 201, 0.8) 30%, rgba(213, 197, 181, 0.8) 90%)",
+    normal: "linear-gradient(45deg, rgba(158, 148, 130, 0.8) 30%, rgba(213, 197, 181, 0.8) 90%)",
     fire: "linear-gradient(45deg, rgba(254, 159, 0, 0.8) 30%, rgba(244, 67, 54, 0.8) 90%)",
     water: "linear-gradient(45deg, rgba(0, 146, 195, 0.8) 30%, rgba(12, 112, 164, 0.8) 90%)",
     electric: "linear-gradient(45deg, rgba(255, 208, 0, 0.8) 30%, rgba(255, 143, 0, 0.8) 90%)",
@@ -25,7 +25,7 @@ const gradientPokemonTypes = {
     ground: "linear-gradient(45deg, rgba(161, 136, 127, 0.8) 30%, rgba(121, 85, 72, 0.8) 90%)",
     flying: "linear-gradient(45deg, rgba(144, 164, 174, 0.8) 30%, rgba(96, 125, 139, 0.8) 90%)",
     psychic: "linear-gradient(45deg, rgba(255, 64, 129, 0.8) 30%, rgba(233, 30, 99, 0.8) 90%)",
-    bug: "linear-gradient(45deg, rgba(124, 179, 66, 0.8) 30%, rgba(104, 159, 56, 0.8) 90%)",
+    bug: "linear-gradient(45deg, rgba(124, 179, 66, 0.8) 30%, rgba(140, 195, 0, 0.8) 90%)",
     rock: "linear-gradient(45deg, rgba(194, 178, 128, 0.8) 30%, rgba(161, 136, 127, 0.8) 90%)",
     ghost: "linear-gradient(45deg, rgba(94, 53, 177, 0.8) 30%, rgba(57, 73, 171, 0.8) 90%)",
     dragon: "linear-gradient(45deg, rgba(103, 58, 183, 0.8) 30%, rgba(63, 81, 181, 0.8) 90%)",

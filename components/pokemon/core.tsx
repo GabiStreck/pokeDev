@@ -1,5 +1,6 @@
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import { Chip } from '@mui/material';
 
@@ -12,7 +13,8 @@ export const ContainerPaper = styled.div((props: { background: string }) => ({
     background: props.background,
     width: '100%',
     borderRadius: 20,
-    minWidth: '-webkit-fill-available'
+    minWidth: '-webkit-fill-available',
+    minHeight: '100%'
 }))
 
 
@@ -35,4 +37,14 @@ export const TextContainer = styled.div`
 
 export const LinkStyle = styled(Link)`
     text-decoration: none;
+`
+
+export const PokemonImage = styled(Image)`
+    margin: auto;
+`
+
+export const ConteinerLoading = styled.div`
+    height: 50px;
+    display: flex;
+    justify-content: center;
 `
