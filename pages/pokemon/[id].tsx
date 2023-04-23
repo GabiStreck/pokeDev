@@ -2,7 +2,6 @@ import { FC } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { useTheme } from '@mui/material/styles';
-import { Typography, useMediaQuery } from '@mui/material';
 import { Pokemon } from '@/types/pokemon'
 import { getGradientPokeTypes } from '@/theme'
 import { getPokemonDetail } from '@/services/getPokemon'
@@ -10,7 +9,6 @@ import { normalize, capitalize, getNumberFormat } from '@/utils/format'
 import Layout from '@/components/Layout'
 import { ChipType, ListTypesItem, TextContainer } from '@/components/pokemon/core'
 import PokemonTabContainer from '@/components/detail/PokemonTabContainer'
-import AboutInfo from '@/components/detail/AboutInfo'
 import {
     ImageContainer,
     MainGradientContainer,
@@ -20,19 +18,22 @@ import {
     PokemonTitle,
     WavePokemonDetail
 } from '@/components/detail/core';
+import { getGenres } from '@/services/getEvolutions';
+import { GenresResponse } from '@/types/genres';
 
 type PokemonDetailProps = {
-    pokemon: Pokemon
+    pokemon: Pokemon,
+    genres: GenresResponse;
 }
 
 interface Props {
     toggleDarkMode: () => void;
-    pokemon: Pokemon
+    pokemon: Pokemon,
+    genres: GenresResponse;
 }
 
-const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
+const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres }) => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const bgGradient = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || '')
     return (
         <>
@@ -71,7 +72,6 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
                             >
                                 {getNumberFormat(pokemon.order)}
                             </PokemonNumber>
-                            {!isMobile ? <AboutInfo pokemon={pokemon} /> : null}
                         </TextContainer>
                         <ImageContainer theme={theme}>
                             <PokemonImageDetail
@@ -85,7 +85,7 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
                         </ImageContainer>
                     </PokemonContainer>
 
-                    <PokemonTabContainer pokemon={pokemon} />
+                    <PokemonTabContainer pokemon={pokemon} genres={genres} />
                 </Layout>
             </MainGradientContainer>
         </>
@@ -94,15 +94,17 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
 
 
 export const getServerSideProps: GetServerSideProps<PokemonDetailProps> = async ({ params }) => {
-    /*@ts-ignore*/
-    const { id } = params
+    const { id } = params as { id: string };
+
     const pokemon = await getPokemonDetail({ id })
-    //const evolutions = await getPokemonEvolution({ id })
-    // const games = await getPokemonGames({ id })
+
+    const genres = await getGenres({ id });
+
     return {
         props: {
             pokemon,
+            genres,
         },
-    }
+    };
 }
-export default PokemonDetail
+export default PokemonDetail 

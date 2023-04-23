@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import CatchingPokemon from '@mui/icons-material/CatchingPokemon';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 interface LayoutProps {
     children: ReactNode;
@@ -8,15 +10,22 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children, toggleDarkMode }) => {
+    const router = useRouter()
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" elevation={0} color='transparent'>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    {router.route !== '/' &&
+                        <IconButton color="inherit" onClick={() => router.back()}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    }
+                    <Typography marginLeft={2} variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         PokeDev
                     </Typography>
+
                     <IconButton color="inherit" onClick={toggleDarkMode}>
-                        <Brightness4Icon />
+                        <CatchingPokemon />
                     </IconButton>
                 </Toolbar>
             </AppBar>

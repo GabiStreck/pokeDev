@@ -1,45 +1,80 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { Pokemon } from '@/types/pokemon'
-import { Typography, Grid, ListItem } from '@mui/material'
-import { normalize, capitalize } from '@/utils/format'
+import { Typography, Grid, Divider, ListItem, List, Container } from '@mui/material'
+import { normalize, capitalize, convertLibsToKgs } from '@/utils/format'
+import { GenresResponse } from '@/types/genres';
 
 interface AbilityProps {
     pokemon: Pokemon;
+    genres: GenresResponse
 }
 
-const AboutInfo: FC<AbilityProps> = ({ pokemon }) => {
-    return (
-        <Grid display='grid' gap={1} paddingY={1}>
-            <Grid xs={12} display={'flex'} gap={10}>
-                <Typography variant='subtitle1' color='#ffffff'>
-                    Species
-                </Typography>
+const AboutInfo: FC<AbilityProps> = ({ pokemon, genres }) => {
+    console.log(genres);
 
-                <Typography variant='button' fontWeight={600} color='#ffffff'>
+    return (
+        <Grid
+            display='grid'
+            gap={1}
+            paddingY={5}
+            alignItems='center'
+            justifyContent='initial'
+            rowGap={2}
+            maxWidth={320}
+            margin='auto'
+        >
+            <GridItemInfo label='Species:'>
+                <Typography variant='button' fontWeight={600}>
                     {normalize(capitalize(pokemon.species.name))}
                 </Typography>
-            </Grid>
+            </GridItemInfo>
 
-            <Grid xs={12} display={'flex'} gap={10}>
-                <Typography variant='subtitle1' color='#ffffff'>
-                    Height
+            <GridItemInfo label='Height:'>
+                <Typography variant='button' fontWeight={600}>
+                    {`${pokemon.height}"`}
                 </Typography>
+            </GridItemInfo>
 
-                <Typography variant='button' fontWeight={600} color='#ffffff'>
-                    {`${pokemon.height} m`}
+            <GridItemInfo label='Weight:'>
+                <Typography variant='button' fontWeight={600}>
+                    {`${pokemon.weight}lbs - ${convertLibsToKgs(pokemon.weight).toFixed(2)}kg`}
                 </Typography>
-            </Grid>
-            <Grid xs={12} display={'flex'} gap={10}>
-                <Typography variant='subtitle1' color='#ffffff'>
-                    Weight
-                </Typography>
+            </GridItemInfo>
 
-                <Typography variant='button' fontWeight={600} color='#ffffff'>
-                    {`${pokemon.weight} kg`}
+            <Divider />
+
+            <GridItemInfo label='Genres:'>
+                <Typography variant='button' fontWeight={600}>
+                    {normalize(capitalize(genres.name))}
                 </Typography>
-            </Grid>
+            </GridItemInfo>
+
+            <GridItemInfo label='Required for evolution:'>
+                <List disablePadding>
+                    {genres.required_for_evolution.map(item =>
+                        <ListItem key={item.url} disableGutters>
+                            <Typography
+                                variant='button'
+                                fontWeight={600}
+                                textAlign='right'
+                            >
+                                {normalize(capitalize(item.name))}
+                            </Typography>
+                        </ListItem>
+                    )}
+                </List>
+            </GridItemInfo>
         </Grid>
     )
 }
+
+const GridItemInfo = ({ label, children }: { label: string, children: ReactNode }) => (
+    <Grid xs={12} display='flex' justifyContent='space-between'>
+        <Typography variant='subtitle1'>
+            {label}
+        </Typography>
+        {children}
+    </Grid>
+)
 
 export default AboutInfo
