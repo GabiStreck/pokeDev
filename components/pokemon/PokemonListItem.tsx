@@ -18,7 +18,7 @@ interface Props {
 const PokemonListItem: FC<Props> = ({ pokemon }) => {
     const background = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || '')
     return (
-        <LinkStyle href='#'>
+        <LinkStyle href={`/pokemon/${pokemon.id}`}>
             <ContainerPaper background={background}>
                 <PokemonImage
                     src={pokemon.image ?? '/images/empty-image.png'}

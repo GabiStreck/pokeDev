@@ -1,6 +1,8 @@
 import { getApiUrl } from "@/config"
 import { PATHNAME_POKEMON } from "@/constants";
+import { Pokemon } from "@/types/pokemon";
 import { PokemonItem, PokemonList, PokemonParams, PokemonsListParams } from "@/types/pokemonList";
+import { getImage } from "@/utils/helpers";
 
 const BASE_URL = getApiUrl(PATHNAME_POKEMON)
 
@@ -28,20 +30,27 @@ export const getPokemon = async ({ id, signal, url }: PokemonParams)
 
     const pokemonData = await pokemonResponse.json();
 
-    const getImage = () => {
-        const imageOther = pokemonData['sprites']['other']
-        return (
-            imageOther['dream_world'].front_default
-            ?? imageOther['official-artwork'].front_default
-            ?? pokemonData['sprites'].front_default
-        )
-    }
-
     return {
         id: pokemonData.id,
         order: pokemonData.order > 0 ? pokemonData.order : pokemonData.id,
         name: pokemonData.name,
-        image: getImage(),
+        image: getImage(pokemonData['sprites']),
         types: pokemonData.types
+    };
+}
+
+
+
+export const getPokemonDetail = async ({ id, signal, url }: PokemonParams)
+    : Promise<Pokemon> => {
+    const pokemonUrl = url ? url : `${BASE_URL}/${id}`
+    const pokemonResponse = await fetch(pokemonUrl, { signal });
+
+    const pokemonData = await pokemonResponse.json();
+
+    return {
+        ...pokemonData,
+        order: pokemonData.order > 0 ? pokemonData.order : pokemonData.id,
+        image: getImage(pokemonData['sprites']),
     };
 }
