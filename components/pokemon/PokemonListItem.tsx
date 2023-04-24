@@ -21,7 +21,7 @@ interface Props {
 const PokemonListItem: FC<Props> = ({ pokemon }) => {
     const background = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || '')
     return (
-        <LinkStyle href={`/pokemon/${pokemon.id}`}>
+        <LinkStyle href={`/pokemon/${pokemon.id}`} prefetch>
             <ContainerPaper background={background}>
                 <PokemonImage
                     src={pokemon.image ?? IMAGE_EMPTY_STATE}
@@ -41,7 +41,7 @@ const PokemonListItem: FC<Props> = ({ pokemon }) => {
                     </Typography>
                     <ListTypesItem>
                         {pokemon.types.map(item =>
-                            <ChipType label={capitalize(item.type.name)} size='small' />
+                            <ChipType key={item.type.url} label={capitalize(item.type.name)} size='small' />
                         )}
                     </ListTypesItem>
                     <Typography

@@ -21,9 +21,9 @@ const PokemonTabContainer: FC<Props> = ({ pokemon, genres }) => {
     };
 
     const items: { [key: string]: ReactNode } = {
-        'About': <AboutInfo pokemon={pokemon} genres={genres} />,
-        'Abilities': <AbilitiesInfo abilities={pokemon.abilities} />,
-        'Stats': <StatsInfo stats={pokemon.stats} />
+        "About": <AboutInfo pokemon={pokemon} genres={genres} />,
+        "Abilities": <AbilitiesInfo abilities={pokemon.abilities} />,
+        "Stats": <StatsInfo stats={pokemon.stats} />
     }
 
     const getItemLabels = (): string[] => {
@@ -38,7 +38,7 @@ const PokemonTabContainer: FC<Props> = ({ pokemon, genres }) => {
             tabs={getItemLabels()}
         >
             {getItemLabels().map((label, index) => (
-                <PokemonTabInfo value={value} index={index}>
+                <PokemonTabInfo key={`${label}-${index}-key`} value={value} index={index}>
                     {items[label]}
                 </PokemonTabInfo>
             )

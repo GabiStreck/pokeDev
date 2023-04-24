@@ -21,7 +21,7 @@ const PokemonList = () => {
                     : null
                 }
             </ConteinerLoading>
-            <Grid container alignContent="stretch" spacing={2}>
+            <Grid container alignContent='stretch' spacing={2}>
                 {pokemons?.map((pokemon, index) => (
                     <Grid item xs={12} sm={6} md={3} key={`${index}-pokemon-${pokemon.id}`} >
                         <PokemonListItem pokemon={pokemon} />

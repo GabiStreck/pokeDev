@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { useTheme } from '@mui/material/styles';
+import { getGenres } from '@/services/getGender';
+import { GenresResponse } from '@/types/genres';
 import { Pokemon } from '@/types/pokemon'
 import { getGradientPokeTypes } from '@/theme'
 import { BAD_REQUEST, NOT_FOUND } from '@/constants';
@@ -18,8 +19,6 @@ import {
     PokemonTitle,
     WavePokemonDetail
 } from '@/components/detail/core';
-import { getGenres } from '@/services/getGender';
-import { GenresResponse } from '@/types/genres';
 import { getEvolutionChain, PokemonEvolution } from '@/services/getEvolutionChain';
 import PokemonEvolutions from '@/components/detail/PokemonEvolutions';
 import ErrorPage from '@/components/ErrorPage';
@@ -38,11 +37,10 @@ interface Props {
 }
 
 const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions }) => {
-    console.log('pokemon', pokemon);
+    const theme = useTheme();
     if (!pokemon || !pokemon.types) return <ErrorPage toggleDarkMode={toggleDarkMode} />;
 
-    const theme = useTheme();
-    const bgGradient = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || '')
+    const bgGradient = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || "")
     return (
         <MainGradientContainer
             theme={theme}
@@ -62,7 +60,7 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions 
                         </PokemonTitle>
                         <ListTypesItem>
                             {pokemon.types.map(item =>
-                                <ChipType label={capitalize(item.type.name)} />
+                                <ChipType key={`pokemon-key-${item.type.name.trim()}`} label={capitalize(item.type.name)} />
                             )}
                         </ListTypesItem>
                         <PokemonNumber

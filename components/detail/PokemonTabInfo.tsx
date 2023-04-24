@@ -12,7 +12,7 @@ function PokemonTabInfo(props: TabPanelProps) {
     return (
         <Container
             disableGutters
-            role="tabpanel"
+            role='tabpanel'
             hidden={value !== index}
             id={`pokemon-tabpanel-${index}`}
             aria-labelledby={`pokemon-tab-${index}`}
