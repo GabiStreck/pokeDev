@@ -38,7 +38,6 @@ interface Props {
 }
 
 const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions }) => {
-    console.log('pokemon', pokemon);
     if (!pokemon || !pokemon.types) return <ErrorPage toggleDarkMode={toggleDarkMode} />;
 
     const theme = useTheme();

@@ -8,11 +8,13 @@ import {
     Paper,
     Stack,
     Autocomplete,
-    TextField
+    TextField,
+    useTheme
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { ChipTypeSearch, ContainerSearchInput } from './core';
+import { ChipTypeSearch, ContainerSearchInput, SearchBoxContainer, SearchStackContainer } from './core';
 import { PokemonImage } from '../pokemon/core';
+
 
 function Search() {
     const { types, loading } = useTypes()
@@ -21,13 +23,14 @@ function Search() {
         handleSelectedType,
         handleRemoveSelectedType
     } = useFilterStore()
-
+    const theme = useTheme();
     const handleSelect = (event: any, value: TypeDetail[]) => {
         if (value) handleSelectedType(value)
     };
 
     return (
-        <Stack
+        <SearchStackContainer
+            theme={theme}
             paddingX={20}
             gap={3}
             minHeight={250}
@@ -40,7 +43,8 @@ function Search() {
                     width={247}
                     height={89}
                 />
-                <Box
+                <SearchBoxContainer
+                    theme={theme}
                     paddingX={2}
                     paddingY={1}
                     borderRadius={20}
@@ -70,7 +74,7 @@ function Search() {
                             </ContainerSearchInput>
                         )}
                     />
-                </Box>
+                </SearchBoxContainer>
             </Box>
             <div>
                 {filters.map((type) => (
@@ -82,7 +86,7 @@ function Search() {
                     />
                 ))}
             </div>
-        </Stack>
+        </SearchStackContainer>
     );
 }
 

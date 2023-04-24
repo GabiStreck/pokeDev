@@ -35,8 +35,6 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
     };
 
     const getImage = () => {
-        console.log(pokemon.image, evolutions);
-
         if (evolutions.length <= 1 || pokemonIndex === currentIndex) return pokemon.image
         return evolutions[currentIndex]?.image ?? evolutions[currentIndex]?.imageDefault
     }
