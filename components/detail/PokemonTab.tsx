@@ -27,12 +27,12 @@ const PokemonTab: FC<Props> = ({ tabs,
         <TabPaperContainer theme={theme} elevation={0}>
             <Box>
                 <Tabs
-                    variant="fullWidth"
+                    variant='fullWidth'
                     value={value}
                     onChange={onChange}
                     aria-label={ariaLabel}
-                    textColor="primary"
-                    indicatorColor="primary"
+                    textColor='primary'
+                    indicatorColor='primary'
                 >
                     {tabs.map((tab, index) => (
                         <TabItem

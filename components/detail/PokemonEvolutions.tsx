@@ -43,10 +43,10 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
         <ContainerPokemonEvolution>
             <FabStyle
                 theme={theme}
-                size="small"
-                color="secondary"
+                size='small'
+                color='secondary'
                 onClick={handlePrevClick}
-                aria-label="inevolute"
+                aria-label='inevolute'
                 position='left'
                 disabled={evolutions.length <= 1 || currentIndex === 0}
             >
@@ -55,7 +55,7 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
             <PokemonImageDetail
                 theme={theme}
                 src={getImage() ?? IMAGE_EMPTY_STATE}
-                onError={(e) => {
+                onError={(e: any) => {
                     e.currentTarget.src = IMAGE_EMPTY_STATE;
                 }}
                 onClick={() => pokemonIndex === currentIndex ? null : router.push(`/pokemon/${evolutions[currentIndex].id}`)}
@@ -65,10 +65,10 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
             />
             <FabStyle
                 theme={theme}
-                size="small"
-                color="secondary"
+                size='small'
+                color='secondary'
                 onClick={handleNextClick}
-                aria-label="evolute"
+                aria-label='evolute'
                 position='right'
                 disabled={evolutions.length <= 1 || currentIndex === evolutions.length - 1}
             >

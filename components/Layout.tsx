@@ -13,18 +13,18 @@ const Layout: FC<LayoutProps> = ({ children, toggleDarkMode }) => {
     const router = useRouter()
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" elevation={0} color='transparent'>
+            <AppBar position='static' elevation={0} color='transparent'>
                 <Toolbar>
                     {router.route !== '/' &&
-                        <IconButton color="inherit" onClick={() => router.back()}>
+                        <IconButton color='inherit' onClick={() => router.back()}>
                             <ArrowBackIcon />
                         </IconButton>
                     }
-                    <Typography marginLeft={2} component="div" sx={{ flexGrow: 1 }}>
+                    <Typography marginLeft={2} component='div' sx={{ flexGrow: 1 }}>
 
                     </Typography>
 
-                    <IconButton color="inherit" onClick={toggleDarkMode}>
+                    <IconButton color='inherit' onClick={toggleDarkMode}>
                         <CatchingPokemon />
                     </IconButton>
                 </Toolbar>

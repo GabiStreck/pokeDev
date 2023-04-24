@@ -28,7 +28,7 @@ const ErrorPage: FC<Props> = ({ toggleDarkMode }) => {
                 />
                 <Typography variant='h3' textAlign='center'>Oops!</Typography>
                 <Typography textAlign='center'>
-                    We're sorry, but this Pokemon is currently unavailable. Please go back and choose another Pokemon.
+                    {"We're sorry, but this Pokemon is currently unavailable. Please go back and choose another Pokemon."}
                 </Typography>
             </Box>
         </Layout>
