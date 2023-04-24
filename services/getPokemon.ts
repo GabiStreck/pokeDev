@@ -42,12 +42,12 @@ export const getPokemon = async ({ id, signal, url }: PokemonParams)
 
 
 export const getPokemonDetail = async ({ id, signal, url }: PokemonParams)
-    : Promise<Pokemon> => {
+    : Promise<Pokemon | undefined> => {
     const pokemonUrl = url ? url : `${BASE_URL}/${id}`
     const pokemonResponse = await fetch(pokemonUrl, { signal });
 
-    const pokemonData = await pokemonResponse.json();
-
+    const pokemonData = await pokemonResponse?.json();
+    if (!pokemonData) return undefined;
     return {
         ...pokemonData,
         order: pokemonData.order > 0 ? pokemonData.order : pokemonData.id,

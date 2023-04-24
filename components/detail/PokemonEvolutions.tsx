@@ -13,12 +13,12 @@ interface PokemonEvolutionsProps {
     pokemon: Pokemon
 }
 
-const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions, pokemon }) => {
+const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemon }) => {
     const theme = useTheme()
     const router = useRouter()
-    const pokemonIndex = evolutions.findIndex(poke => {
+    const pokemonIndex = evolutions?.findIndex(poke => {
         return poke.name === pokemon.name;
-    })
+    }) ?? 0
     const [currentIndex, setCurrentIndex] = useState<number>(pokemonIndex);
 
 

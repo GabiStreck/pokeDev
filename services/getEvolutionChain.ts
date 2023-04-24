@@ -18,16 +18,17 @@ export async function getEvolutionChain(url: string): Promise<PokemonEvolution[]
 
     while (currentEvolutions) {
         const speciesUrl = currentEvolutions.species.url;
+        if (!speciesUrl) break
         const speciesResponse = await fetch(speciesUrl);
-        const speciesData = await speciesResponse.json();
-
-        pokemonEvolutions.push({
-            id: speciesData.id,
-            name: speciesData.name,
-            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${speciesData.id}.svg`,
-            imageDefault: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/${speciesData.id}.png`,
-            genre: speciesData.gender_rate,
-        });
+        const speciesData = await speciesResponse?.json();
+        if (speciesData)
+            pokemonEvolutions.push({
+                id: speciesData.id,
+                name: speciesData.name,
+                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${speciesData.id}.svg`,
+                imageDefault: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/${speciesData.id}.png`,
+                genre: speciesData.gender_rate,
+            });
 
         currentEvolutions = currentEvolutions.evolves_to[0];
     }

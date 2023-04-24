@@ -10,3 +10,6 @@ export const FILTERS_KEY = 'filters'
 export const POKEMON_BY_FILTER_KEY = 'pokemonByFilter'
 
 export const IMAGE_EMPTY_STATE = '/images/empty-image.png'
+
+export const NOT_FOUND = 404
+export const BAD_REQUEST = 400
