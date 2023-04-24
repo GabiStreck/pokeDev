@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styled from '@emotion/styled'
 import { Theme } from '@mui/material/styles';
-import { Container, List, ListItem, Paper, Tab, Typography } from '@mui/material';
+import { Container, Fab, List, ListItem, Paper, Tab, Typography } from '@mui/material';
 
 
 interface MainGradientContainerProps {
@@ -113,5 +113,23 @@ export const PokemonTitle = styled(Typography)(({ theme }: { theme: Theme }) => 
 export const PokemonNumber = styled(Typography)(({ theme }: { theme: Theme }) => `  
     ${theme.breakpoints.down('sm')} {
         font-size: 3rem;
+    }  
+`);
+
+export const ContainerPokemonEvolution = styled('div')`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 550px;
+    gap: 20px;
+    margin: auto;
+`;
+
+export const FabStyle = styled(Fab)(({ theme, position }: { theme: Theme, position: string }) => `
+    ${theme.breakpoints.only('xs')} {
+        position: absolute;
+        ${position}: 7%;
+        bottom: 40px;
     }  
 `);

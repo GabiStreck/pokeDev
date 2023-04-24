@@ -10,8 +10,6 @@ interface AbilityProps {
 }
 
 const AboutInfo: FC<AbilityProps> = ({ pokemon, genres }) => {
-    console.log(genres);
-
     return (
         <Grid
             display='grid'
@@ -40,30 +38,33 @@ const AboutInfo: FC<AbilityProps> = ({ pokemon, genres }) => {
                     {`${pokemon.weight}lbs - ${convertLibsToKgs(pokemon.weight).toFixed(2)}kg`}
                 </Typography>
             </GridItemInfo>
+            {genres ?
+                <>
+                    <Divider />
 
-            <Divider />
+                    <GridItemInfo label='Genres:'>
+                        <Typography variant='button' fontWeight={600}>
+                            {normalize(capitalize(genres.name))}
+                        </Typography>
+                    </GridItemInfo>
 
-            <GridItemInfo label='Genres:'>
-                <Typography variant='button' fontWeight={600}>
-                    {normalize(capitalize(genres.name))}
-                </Typography>
-            </GridItemInfo>
-
-            <GridItemInfo label='Required for evolution:'>
-                <List disablePadding>
-                    {genres.required_for_evolution.map(item =>
-                        <ListItem key={item.url} disableGutters>
-                            <Typography
-                                variant='button'
-                                fontWeight={600}
-                                textAlign='right'
-                            >
-                                {normalize(capitalize(item.name))}
-                            </Typography>
-                        </ListItem>
-                    )}
-                </List>
-            </GridItemInfo>
+                    <GridItemInfo label='Required for evolution:'>
+                        <List disablePadding>
+                            {genres.required_for_evolution.map(item =>
+                                <ListItem key={item.url} disableGutters>
+                                    <Typography
+                                        variant='button'
+                                        fontWeight={600}
+                                        textAlign='right'
+                                    >
+                                        {normalize(capitalize(item.name))}
+                                    </Typography>
+                                </ListItem>
+                            )}
+                        </List>
+                    </GridItemInfo>
+                </>
+                : null}
         </Grid>
     )
 }
