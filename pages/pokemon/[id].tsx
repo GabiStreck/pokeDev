@@ -60,7 +60,7 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions 
                         </PokemonTitle>
                         <ListTypesItem>
                             {pokemon.types.map(item =>
-                                <ChipType key={`pokemon-key-${item.type.name.trim}`} label={capitalize(item.type.name)} />
+                                <ChipType key={`pokemon-key-${item.type.name.trim()}`} label={capitalize(item.type.name)} />
                             )}
                         </ListTypesItem>
                         <PokemonNumber

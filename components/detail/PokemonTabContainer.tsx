@@ -38,7 +38,7 @@ const PokemonTabContainer: FC<Props> = ({ pokemon, genres }) => {
             tabs={getItemLabels()}
         >
             {getItemLabels().map((label, index) => (
-                <PokemonTabInfo key={`${value}-key`} value={value} index={index}>
+                <PokemonTabInfo key={`${label}-${index}-key`} value={value} index={index}>
                     {items[label]}
                 </PokemonTabInfo>
             )
