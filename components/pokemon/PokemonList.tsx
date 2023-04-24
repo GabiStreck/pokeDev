@@ -30,7 +30,7 @@ const PokemonList = () => {
                         ) : null}
                     </Grid>
                 ))}
-                {isFetching || loading || loadingFilters && <PokemonListLoading />}
+                {(isFetching || loading || loadingFilters && !nextPageUrl) && <PokemonListLoading />}
             </Grid>
         </>
     );

@@ -6,11 +6,13 @@ import { Pokemon } from '@/types/typesPokemon';
 import { TypeDetail } from '@/types/pokemon';
 import useFilterStore from './useFilterStore';
 import { PokemonsByFilterType } from '@/types/storeFilters';
+import useDebouncedFilter from './useDebouncedFilter';
 
 
 const useFilterPokemon = () => {
     const { filters, filteredPokemons, handleAddPokemonFilters } = useFilterStore();
     const [loadingFilters, setLoadingFilters] = useState<boolean>(false);
+    const debouncedFilter = useDebouncedFilter(filters);
 
     const missingTypes = useMemo<TypeDetail[]>(() => {
         const typesInPokemonFilters: string[] = filteredPokemons.map(pokeFilter => pokeFilter.typeFilter);
@@ -73,7 +75,7 @@ const useFilterPokemon = () => {
         }
     };
 
-    return { fetchPokemonsByTypes, filters, loadingFilters };
+    return { fetchPokemonsByTypes, filters: debouncedFilter, loadingFilters };
 }
 
 export default useFilterPokemon;

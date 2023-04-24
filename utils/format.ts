@@ -9,3 +9,8 @@ export function normalize(str: string): string {
 export function getNumberFormat(number: number): string {
     return `#${number.toString().padStart(3, '0')}`
 }
+
+export const convertLibsToKgs = (libs: number) => {
+    var kilograms = libs * 0.453592;
+    return kilograms;
+}
