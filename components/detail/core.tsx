@@ -51,6 +51,7 @@ export const WavePokemonDetail = styled.div(({ theme }: { theme: Theme }) => `
 `);
 
 export const PokemonImageDetail = styled(Image)(({ theme }: { theme: Theme }) => `
+           cursor: pointer;
     ${theme.breakpoints.down('md')} {
         display: flex;
         margin: auto;
@@ -60,9 +61,9 @@ export const PokemonImageDetail = styled(Image)(({ theme }: { theme: Theme }) =>
         object-fit: contain;
         max-width: 80vw;
     }  
-     ${theme.breakpoints.down('sm')} {
+    ${theme.breakpoints.down('sm')} {
         max-heigth: 300px;
-     }
+    }
 `);
 
 export const TabPaperContainer = styled(Paper)(({ theme }: { theme: Theme }) => `
@@ -131,5 +132,5 @@ export const FabStyle = styled(Fab)(({ theme, position }: { theme: Theme, positi
         position: absolute;
         ${position}: 7%;
         bottom: 40px;
-    }  
+    }
 `);

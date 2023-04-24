@@ -77,7 +77,7 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolution }
                             </PokemonNumber>
                         </TextContainer>
                         <ImageContainer theme={theme}>
-                            <PokemonEvolutions evolutions={evolution} name={pokemon.name} />
+                            <PokemonEvolutions evolutions={evolution} pokemon={pokemon} />
                             <WavePokemonDetail theme={theme} />
                         </ImageContainer>
                     </PokemonContainer>
@@ -100,8 +100,6 @@ export const getServerSideProps: GetServerSideProps<PokemonDetailProps> = async 
     let genres = null
     if (pokemonSpecie) {
         const gender = pokemonSpecie.genre === -1 ? 'genderless' : pokemonSpecie.genre === 0 ? 'genderless' : pokemonSpecie.genre === 1 ? 'male' : 'female';
-        console.log(gender, pokemonSpecie);
-
         genres = gender ? await getGenres({ name: gender }) : null;
     }
 

@@ -4,12 +4,20 @@ import { PokemonEvolution } from '@/services/getEvolutionChain';
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import { FabStyle, PokemonImageDetail, ContainerPokemonEvolution } from './core';
+import { Pokemon } from '@/types/pokemon';
+import { IMAGE_EMPTY_STATE } from '@/constants';
+import { useRouter } from 'next/router';
 
+interface PokemonEvolutionsProps {
+    evolutions: PokemonEvolution[];
+    pokemon: Pokemon
+}
 
-const PokemonEvolutions: FC<{ evolutions: PokemonEvolution[], name: string }> = ({ evolutions, name = '' }) => {
+const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions, pokemon }) => {
     const theme = useTheme()
+    const router = useRouter()
     const pokemonIndex = evolutions.findIndex(poke => {
-        return poke.name === name;
+        return poke.name === pokemon.name;
     })
     const [currentIndex, setCurrentIndex] = useState<number>(pokemonIndex);
 
@@ -26,6 +34,13 @@ const PokemonEvolutions: FC<{ evolutions: PokemonEvolution[], name: string }> = 
         }
     };
 
+    const getImage = () => {
+        console.log(pokemon.image, evolutions);
+
+        if (evolutions.length <= 1 || pokemonIndex === currentIndex) return pokemon.image
+        return evolutions[currentIndex]?.image ?? evolutions[currentIndex]?.imageDefault
+    }
+
     return (
         <ContainerPokemonEvolution>
             <FabStyle
@@ -35,20 +50,20 @@ const PokemonEvolutions: FC<{ evolutions: PokemonEvolution[], name: string }> = 
                 onClick={handlePrevClick}
                 aria-label="inevolute"
                 position='left'
-                disabled={currentIndex === 0}
+                disabled={evolutions.length <= 1 || currentIndex === 0}
             >
                 <SouthIcon />
             </FabStyle>
             <PokemonImageDetail
                 theme={theme}
+                src={getImage() ?? IMAGE_EMPTY_STATE}
                 onError={(e) => {
-                    e.currentTarget.src = '/empty-state.png';
+                    e.currentTarget.src = IMAGE_EMPTY_STATE;
                 }}
-                src={evolutions[currentIndex].image}
+                onClick={() => pokemonIndex === currentIndex ? null : router.push(`/pokemon/${evolutions[currentIndex].id}`)}
                 width={400}
                 height={400}
-                alt={evolutions[currentIndex].name}
-
+                alt={evolutions[currentIndex]?.name}
             />
             <FabStyle
                 theme={theme}
@@ -57,7 +72,7 @@ const PokemonEvolutions: FC<{ evolutions: PokemonEvolution[], name: string }> = 
                 onClick={handleNextClick}
                 aria-label="evolute"
                 position='right'
-                disabled={currentIndex === evolutions.length - 1}
+                disabled={evolutions.length <= 1 || currentIndex === evolutions.length - 1}
             >
                 <NorthIcon />
             </FabStyle>

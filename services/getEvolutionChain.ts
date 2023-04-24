@@ -3,8 +3,8 @@ export interface PokemonEvolution {
     id: string;
     name: string;
     image: string;
+    imageDefault: string;
     genre: number;
-    habitat: string
 }
 
 export async function getEvolutionChain(url: string): Promise<PokemonEvolution[]> {
@@ -25,8 +25,8 @@ export async function getEvolutionChain(url: string): Promise<PokemonEvolution[]
             id: speciesData.id,
             name: speciesData.name,
             image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${speciesData.id}.svg`,
+            imageDefault: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/${speciesData.id}.png`,
             genre: speciesData.gender_rate,
-            habitat: speciesData.habitat.name
         });
 
         currentEvolutions = currentEvolutions.evolves_to[0];

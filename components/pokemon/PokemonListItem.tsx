@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { PokemonItem } from '@/types/pokemonList';
+import { IMAGE_EMPTY_STATE } from '@/constants';
 import { capitalize, getNumberFormat, normalize } from '@/utils/format';
 import { getGradientPokeTypes } from '@/theme';
 import {
@@ -11,6 +12,8 @@ import {
     TextContainer,
     PokemonImage
 } from './core';
+
+
 interface Props {
     pokemon: PokemonItem;
 }
@@ -21,7 +24,7 @@ const PokemonListItem: FC<Props> = ({ pokemon }) => {
         <LinkStyle href={`/pokemon/${pokemon.id}`}>
             <ContainerPaper background={background}>
                 <PokemonImage
-                    src={pokemon.image ?? '/images/empty-image.png'}
+                    src={pokemon.image ?? IMAGE_EMPTY_STATE}
                     alt={pokemon.name}
                     height={150} width={150}
                     loading='lazy'

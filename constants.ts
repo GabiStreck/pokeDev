@@ -8,3 +8,5 @@ export const PATHNAME_SPECIES = 'pokemon-species'
 export const FILTERS_STORE_KEY = 'filterStore'
 export const FILTERS_KEY = 'filters'
 export const POKEMON_BY_FILTER_KEY = 'pokemonByFilter'
+
+export const IMAGE_EMPTY_STATE = '/images/empty-image.png'
