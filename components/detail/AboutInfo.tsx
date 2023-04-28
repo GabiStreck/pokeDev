@@ -1,15 +1,16 @@
 import { FC, ReactNode } from 'react'
 import { Pokemon } from '@/types/pokemon'
-import { Typography, Grid, Divider, ListItem, List, Container } from '@mui/material'
+import { Typography, Grid, Divider, ListItem, List, Skeleton } from '@mui/material'
 import { normalize, capitalize, convertLibsToKgs } from '@/utils/format'
-import { GenresResponse } from '@/types/genres';
+import useGenres from '@/hooks/useGenres';
 
 interface AbilityProps {
     pokemon: Pokemon;
-    genres: GenresResponse
+    genre: string
 }
 
-const AboutInfo: FC<AbilityProps> = ({ pokemon, genres }) => {
+const AboutInfo: FC<AbilityProps> = ({ pokemon, genre }) => {
+    const { loading, genres } = useGenres(genre)
     return (
         <Grid
             display='grid'
@@ -38,10 +39,10 @@ const AboutInfo: FC<AbilityProps> = ({ pokemon, genres }) => {
                     {`${pokemon.weight}lbs - ${convertLibsToKgs(pokemon.weight).toFixed(2)}kg`}
                 </Typography>
             </GridItemInfo>
+            {loading ? <GenresLoading /> : null}
             {genres ?
                 <>
                     <Divider />
-
                     <GridItemInfo label='Genres:'>
                         <Typography variant='button' fontWeight={600}>
                             {normalize(capitalize(genres.name))}
@@ -75,6 +76,19 @@ const GridItemInfo = ({ label, children }: { label: string, children: ReactNode 
             {label}
         </Typography>
         {children}
+    </Grid>
+)
+
+const GenresLoading = () => (
+    <Grid xs={12} display='flex' justifyContent='space-between'>
+        <Skeleton variant='rounded' width={140} />
+        <List disablePadding>
+            {Array.from({ length: 4 }).map(item =>
+                <ListItem key={`loading-${item}-genre`} disableGutters>
+                    <Skeleton variant='rounded' width={120} />
+                </ListItem>
+            )}
+        </List>
     </Grid>
 )
 

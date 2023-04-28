@@ -8,3 +8,11 @@ export const getImage = (image: Sprites) => {
         ?? image.front_default
     )
 }
+
+
+export const getGenderName = (id: number): string => {
+    return id === -1 ? 'genderless'
+        : id === 0 ? 'genderless'
+            : id === 1 ? 'male'
+                : 'female';
+} 
