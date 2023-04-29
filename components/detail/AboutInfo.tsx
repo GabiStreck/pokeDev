@@ -83,8 +83,8 @@ const GenresLoading = () => (
     <Grid xs={12} display='flex' justifyContent='space-between'>
         <Skeleton variant='rounded' width={140} />
         <List disablePadding>
-            {Array.from({ length: 4 }).map(item =>
-                <ListItem key={`loading-${item}-genre`} disableGutters>
+            {Array.from({ length: 4 }).map((_, index) =>
+                <ListItem key={`loading-${index}-genre`} disableGutters>
                     <Skeleton variant='rounded' width={120} />
                 </ListItem>
             )}

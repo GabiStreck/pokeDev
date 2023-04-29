@@ -3,7 +3,7 @@ import { Pokemon } from '@/types/pokemon'
 import { PokemonEvolution, getEvolutionChain } from '@/services/getEvolutionChain';
 import { getGenderName } from '@/utils/helpers';
 
-const usePokemonDetail = (pokemon: Pokemon) => {
+const usePokemonDetail = (pokemon: Pokemon | undefined | null) => {
     const [genre, setGenre] = useState<string>('');
     const [evolutions, setEvolutions] = useState<PokemonEvolution[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -27,6 +27,7 @@ const usePokemonDetail = (pokemon: Pokemon) => {
     }
 
     useEffect(() => {
+        if (!pokemon) return;
         fetchEvolutionData();
     }, [pokemon]);
 

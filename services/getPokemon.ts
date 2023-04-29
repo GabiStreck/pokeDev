@@ -41,7 +41,6 @@ export const getPokemon = async ({ id, signal, url }: PokemonParams)
 }
 
 
-
 export const getPokemonDetail = async ({ id, signal, url }: PokemonParams)
     : Promise<Pokemon | undefined> => {
     const pokemonUrl = url ? url : `${BASE_URL}/${id}`

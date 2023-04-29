@@ -32,8 +32,8 @@ interface Props {
 
 const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
     const theme = useTheme();
-    if (!pokemon || !pokemon.types) return <ErrorPage toggleDarkMode={toggleDarkMode} />;
     const { genre, evolutions, loading } = usePokemonDetail(pokemon)
+    if (!pokemon || !pokemon.types) return <ErrorPage toggleDarkMode={toggleDarkMode} />;
     const bgGradient = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || "")
 
     return (
