@@ -1,17 +1,18 @@
-import usePokemon from '@/hooks/usePokemon';
+import useFilterPokemons from '@/hooks/useFilterPokemons';
 import { CircularProgress, Grid } from '@mui/material';
 import PokemonListItem from './PokemonListItem';
 import { ConteinerLoading } from './core';
 import { PokemonListLoading } from './PokemonListLoading';
 
-const PokemonList = () => {
+const PokemonListFilters = () => {
     const {
         pokemons,
-        nextPageUrl,
-        loading,
+        loadingFilters,
         isFetching,
+        endOfList,
         lastItemElementRef
-    } = usePokemon();
+    } = useFilterPokemons();
+
     return (
         <>
             <ConteinerLoading>
@@ -24,15 +25,15 @@ const PokemonList = () => {
                 {pokemons?.map((pokemon, index) => (
                     <Grid item xs={12} sm={6} md={3} key={`${index}-pokemon-${pokemon.id}`} >
                         <PokemonListItem pokemon={pokemon} />
-                        {index === pokemons.length - 1 && nextPageUrl ? (
+                        {index === pokemons.length - 1 && !endOfList ? (
                             <div ref={lastItemElementRef}></div>
                         ) : null}
                     </Grid>
                 ))}
-                {(isFetching || loading && !nextPageUrl) && <PokemonListLoading />}
+                {(isFetching || loadingFilters) && <PokemonListLoading />}
             </Grid>
         </>
     );
 };
 
-export default PokemonList;
+export default PokemonListFilters;
