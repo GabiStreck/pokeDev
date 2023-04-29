@@ -25,7 +25,7 @@ const Home: FC<Props> = ({ toggleDarkMode }) => {
         {filters.length > 0 ?
           <Suspense
             fallback={
-              <Grid>
+              <Grid container alignContent='stretch' spacing={2}>
                 <PokemonListLoading />
               </Grid>
             }
