@@ -43,7 +43,7 @@ export const PokemonImage = styled(Image)`
     margin: auto;
 `
 
-export const ConteinerLoading = styled.div`
+export const ConteinerCenter = styled.div`
     height: 50px;
     display: flex;
     justify-content: center;

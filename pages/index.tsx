@@ -1,6 +1,6 @@
 import { FC, Suspense } from 'react'
 import dynamic from 'next/dynamic'
-import { Container } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import Layout from '@/components/Layout'
 import PokemonList from '@/components/pokemon/PokemonList'
 import Search from '@/components/search/Search'
@@ -23,7 +23,13 @@ const Home: FC<Props> = ({ toggleDarkMode }) => {
       <Container>
         <Search />
         {filters.length > 0 ?
-          <Suspense fallback={<PokemonListLoading />}>
+          <Suspense
+            fallback={
+              <Grid>
+                <PokemonListLoading />
+              </Grid>
+            }
+          >
             <PokemonListFilters />
           </Suspense>
           :
