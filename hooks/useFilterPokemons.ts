@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { PER_PAGE } from '@/constants';
 import { getPokemon } from '@/services/getPokemon';
 import { PokemonItem } from '@/types/pokemonList';
@@ -40,7 +40,6 @@ const useFilterPokemons = (limit = PER_PAGE) => {
                 return await getTypeData(typePokemon);
             })
         );
-        console.log(typesData, page);
 
         const allTypeFilter = typesData.map(item => item.typePokemons).reduce((prev, curr) => {
             return prev.filter((obj) => curr.some((el) => el.pokemon.name === obj.pokemon.name));
@@ -57,14 +56,12 @@ const useFilterPokemons = (limit = PER_PAGE) => {
 
     const fetchPokemonsByTypes = async (offset = page) => {
         try {
-            console.log('entre', endOfList);
             setLoadingFilters(true);
             const pokemonsPaginated = await getPokemonsByFilters(offset)
             const allPokemonsFilters: PokemonItem[] = pokemonsPaginated.flat().sort((a, b) => {
                 if (a.order < b.order) return -1
                 return 1
             });
-            console.log(allPokemonsFilters.length, allPokemonsFilters.length < limit, limit, offset);
 
             setEndOfList(allPokemonsFilters.length < limit);
             setPage(offset + 1);

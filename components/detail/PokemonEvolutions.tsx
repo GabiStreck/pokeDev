@@ -1,4 +1,4 @@
-import { FC, useState, useMemo, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Skeleton, useTheme } from '@mui/material';
 import { PokemonEvolution } from '@/services/getEvolutionChain';
 import SouthIcon from '@mui/icons-material/South';
@@ -23,7 +23,6 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
         const pokemonIndex = evolutions?.findIndex(poke => {
             return poke.name === pokemon.name;
         })
-        console.log(pokemonIndex, currentIndex, pokemonIndex !== currentIndex);
 
         if (pokemonIndex !== currentIndex) {
             setCurrentIndex(pokemonIndex)

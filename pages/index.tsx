@@ -1,26 +1,31 @@
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { Container } from '@mui/material'
 import Layout from '@/components/Layout'
 import PokemonList from '@/components/pokemon/PokemonList'
 import Search from '@/components/search/Search'
 import useFilterStore from '@/hooks/useFilterStore'
-import PokemonListFilters from '@/components/pokemon/PokemonListFilter'
+import { PokemonListLoading } from '@/components/pokemon/PokemonListLoading';
 
 interface Props {
   toggleDarkMode: () => void
 }
 
+const PokemonListFilters = dynamic(() => import('@/components/pokemon/PokemonListFilter'), {
+  loading: () => <PokemonListLoading />,
+  ssr: true,
+});
 
 const Home: FC<Props> = ({ toggleDarkMode }) => {
   const { filters } = useFilterStore()
-  console.log(filters);
-
   return (
     <Layout toggleDarkMode={toggleDarkMode}>
       <Container>
         <Search />
         {filters.length > 0 ?
-          <PokemonListFilters />
+          <Suspense fallback={<PokemonListLoading />}>
+            <PokemonListFilters />
+          </Suspense>
           :
           <PokemonList />}
       </Container>
