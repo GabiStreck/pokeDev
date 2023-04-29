@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import { GetServerSideProps } from 'next'
 import { useTheme } from '@mui/material/styles';
-import { getGenres } from '@/services/getGender';
-import { GenresResponse } from '@/types/genres';
 import { Pokemon } from '@/types/pokemon'
 import { getGradientPokeTypes } from '@/theme'
 import { BAD_REQUEST, NOT_FOUND } from '@/constants';
@@ -19,28 +17,25 @@ import {
     PokemonTitle,
     WavePokemonDetail
 } from '@/components/detail/core';
-import { getEvolutionChain, PokemonEvolution } from '@/services/getEvolutionChain';
 import PokemonEvolutions from '@/components/detail/PokemonEvolutions';
 import ErrorPage from '@/components/ErrorPage';
+import usePokemonDetail from '@/hooks/usePokemonDetail';
 
 type PokemonDetailProps = {
-    pokemon: Pokemon | null,
-    genres: GenresResponse | null;
-    evolutions: PokemonEvolution[] | [];
+    pokemon: Pokemon | null
 }
 
 interface Props {
     toggleDarkMode: () => void;
-    pokemon: Pokemon | null,
-    genres: GenresResponse;
-    evolutions: PokemonEvolution[];
+    pokemon: Pokemon | null
 }
 
-const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions }) => {
+const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon }) => {
     const theme = useTheme();
+    const { genre, evolutions, loading } = usePokemonDetail(pokemon)
     if (!pokemon || !pokemon.types) return <ErrorPage toggleDarkMode={toggleDarkMode} />;
-
     const bgGradient = getGradientPokeTypes(pokemon?.types[0]?.type.name as string || "")
+
     return (
         <MainGradientContainer
             theme={theme}
@@ -60,7 +55,10 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions 
                         </PokemonTitle>
                         <ListTypesItem>
                             {pokemon.types.map(item =>
-                                <ChipType key={`pokemon-key-${item.type.name.trim()}`} label={capitalize(item.type.name)} />
+                                <ChipType
+                                    key={`pokemon-key-${item.type.name.trim()}`}
+                                    label={capitalize(item.type.name)}
+                                />
                             )}
                         </ListTypesItem>
                         <PokemonNumber
@@ -73,12 +71,16 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions 
                         </PokemonNumber>
                     </TextContainer>
                     <ImageContainer theme={theme}>
-                        <PokemonEvolutions evolutions={evolutions} pokemon={pokemon} />
+                        <PokemonEvolutions
+                            evolutions={evolutions}
+                            pokemon={pokemon}
+                            loading={loading}
+                        />
                         <WavePokemonDetail theme={theme} />
                     </ImageContainer>
                 </PokemonContainer>
 
-                <PokemonTabContainer pokemon={pokemon} genres={genres} />
+                <PokemonTabContainer pokemon={pokemon} genre={genre} />
             </Layout>
         </MainGradientContainer>
     )
@@ -89,31 +91,10 @@ const PokemonDetail: FC<Props> = ({ toggleDarkMode, pokemon, genres, evolutions 
 export const getServerSideProps: GetServerSideProps<PokemonDetailProps> = async ({ params }) => {
     try {
         const { id } = params as { id: string };
-
         const pokemon = await getPokemonDetail({ id })
-        if (!pokemon) {
-            return {
-                props: {
-                    pokemon: null,
-                    genres: null,
-                    evolution: []
-                }
-            }
-        }
-        const evolution = await getEvolutionChain(pokemon.species.url)
-        const evolutions = evolution.length > 0 ? evolution : [];
-        const pokemonSpecie = evolutions?.find(item => item.name === pokemon.name)
-        let genres = null
-        if (pokemonSpecie) {
-            const gender = pokemonSpecie.genre === -1 ? 'genderless' : pokemonSpecie.genre === 0 ? 'genderless' : pokemonSpecie.genre === 1 ? 'male' : 'female';
-            genres = gender ? await getGenres({ name: gender }) : null;
-        }
-
         return {
             props: {
-                pokemon: pokemon,
-                genres: genres,
-                evolutions: evolutions
+                pokemon: pokemon ? pokemon : null,
             }
         };
     } catch (error: any) {
