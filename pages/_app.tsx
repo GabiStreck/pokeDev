@@ -17,37 +17,37 @@ const App = ({ Component, pageProps }: AppProps) => {
           <title>PokeDev</title>
 
           <meta
-            http-equiv="Content-Security-Policy"
-            content="
-              connect-src 'self' https://pokeapi.co/;
-              object-src 'none';
-              base-uri 'self';
-              form-action 'self'; 
-              block-all-mixed-content;
-              upgrade-insecure-requests;
-            "
+            http-equiv='Content-Security-Policy'
+            content='
+              connect-src "self" https://pokeapi.co/;
+          object-src "none";
+          base-uri "self";
+          form-action "self";
+          block-all-mixed-content;
+          upgrade-insecure-requests;
+          '
           />
           <meta name='description' content='Created by Gabriel Streck' />
           <link rel='icon' href='/favicon.ico' />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta name="theme-color" content="transparent" />
-          <link rel="manifest" href="/manifest.json" />
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <meta name='theme-color' content='transparent' />
+          <link rel='manifest' href='/manifest.json' />
           <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="/icons/icon-76x76.png"
+            rel='apple-touch-icon'
+            sizes='76x76'
+            href='/icons/icon-76x76.png'
           />
           <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/icons/icon-32x32.png"
+            rel='icon'
+            type='image/png'
+            sizes='32x32'
+            href='/icons/icon-32x32.png'
           />
           <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/icons/icon-16x16.png"
+            rel='icon'
+            type='image/png'
+            sizes='16x16'
+            href='/icons/icon-16x16.png'
           />
         </Head>
         <Component {...pageProps} toggleDarkMode={toggleDarkMode} />

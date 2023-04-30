@@ -36,7 +36,7 @@ const PokemonTab: FC<Props> = ({ tabs,
                 >
                     {tabs.map((tab, index) => (
                         <TabItem
-                            aria-hidden="true"
+                            aria-hidden='true'
                             label={tab}
                             {...getA11yProps(index)}
                             key={`tab-${tab.trim()}-${index}`}
