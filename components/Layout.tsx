@@ -18,16 +18,16 @@ const Layout: FC<LayoutProps> = ({ children, toggleDarkMode }) => {
                 <Toolbar>
                     {router.route !== '/' &&
                         <>
-                            <IconButton color='inherit' onClick={() => router.back()} aria-label="Go to back">
+                            <IconButton color='inherit' onClick={() => router.back()} aria-label='Go to back'>
                                 <ArrowBackIcon />
                             </IconButton>
-                            <IconButton color='inherit' onClick={() => router.push('/')} aria-label="Go to home">
+                            <IconButton color='inherit' onClick={() => router.push('/')} aria-label='Go to home'>
                                 <HomeIcon />
                             </IconButton>
                         </>
                     }
                     <div style={{ flexGrow: 1 }} />
-                    <IconButton color='inherit' onClick={toggleDarkMode} aria-label="Dark mode">
+                    <IconButton color='inherit' onClick={toggleDarkMode} aria-label='Dark mode'>
                         <CatchingPokemon />
                     </IconButton>
                 </Toolbar>
