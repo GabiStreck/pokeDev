@@ -71,8 +71,8 @@ const AboutInfo: FC<AbilityProps> = ({ pokemon, genre }) => {
 }
 
 const GridItemInfo = ({ label, children }: { label: string, children: ReactNode }) => (
-    <Grid xs={12} display='flex' justifyContent='space-between'>
-        <Typography variant='subtitle1'>
+    <Grid display='flex' justifyContent='space-between'>
+        <Typography >
             {label}
         </Typography>
         {children}
@@ -80,7 +80,7 @@ const GridItemInfo = ({ label, children }: { label: string, children: ReactNode 
 )
 
 const GenresLoading = () => (
-    <Grid xs={12} display='flex' justifyContent='space-between'>
+    <Grid display='flex' justifyContent='space-between'>
         <Skeleton variant='rounded' width={140} />
         <List disablePadding>
             {Array.from({ length: 4 }).map((_, index) =>
