@@ -15,22 +15,10 @@ const App = ({ Component, pageProps }: AppProps) => {
         <CssBaseline />
         <Head>
           <title>PokeDev</title>
-
-          <meta
-            http-equiv='Content-Security-Policy'
-            content='
-              connect-src "self" https://pokeapi.co/;
-          object-src "none";
-          base-uri "self";
-          form-action "self";
-          block-all-mixed-content;
-          upgrade-insecure-requests;
-          '
-          />
           <meta name='description' content='Created by Gabriel Streck' />
           <link rel='icon' href='/favicon.ico' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta name='theme-color' content='transparent' />
+          <meta name='theme-color' content='#ffffff' />
           <link rel='manifest' href='/manifest.json' />
           <link
             rel='apple-touch-icon'
