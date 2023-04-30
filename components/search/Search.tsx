@@ -41,6 +41,7 @@ function Search() {
                     alt='logo pokedev'
                     width={247.5}
                     height={86}
+                    loading="lazy"
                 />
                 <SearchBoxContainer
                     theme={theme}
