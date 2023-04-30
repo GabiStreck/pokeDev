@@ -18,10 +18,10 @@ const Layout: FC<LayoutProps> = ({ children, toggleDarkMode }) => {
                 <Toolbar>
                     {router.route !== '/' &&
                         <>
-                            <IconButton color='inherit' onClick={() => router.back()}>
+                            <IconButton color='inherit' onClick={() => router.back()} aria-label="Go to back">
                                 <ArrowBackIcon />
                             </IconButton>
-                            <IconButton color='inherit' onClick={() => router.push('/')}>
+                            <IconButton color='inherit' onClick={() => router.push('/')} aria-label="Go to home">
                                 <HomeIcon />
                             </IconButton>
                         </>

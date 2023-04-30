@@ -6,7 +6,6 @@ import useFilterStore from '@/hooks/useFilterStore';
 import {
     Box,
     Paper,
-    Stack,
     Autocomplete,
     TextField,
     useTheme

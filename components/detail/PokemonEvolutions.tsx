@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from 'react';
-import { Skeleton, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import { PokemonEvolution } from '@/services/getEvolutionChain';
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
-import { FabStyle, PokemonImageDetail, ContainerPokemonEvolution } from './core';
+import { FabStyle, PokemonImageDetail, ContainerPokemonEvolution, FabSkeleton } from './core';
 import { Pokemon } from '@/types/pokemon';
 import { IMAGE_EMPTY_STATE } from '@/constants';
 import { useRouter } from 'next/router';
@@ -56,10 +56,12 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
     return (
         <ContainerPokemonEvolution>
             {loading ?
-                <Skeleton
+                <FabSkeleton
+                    theme={theme}
                     variant='circular'
                     width={40}
                     height={40}
+                    position='left'
                 />
                 :
                 <FabStyle
@@ -83,14 +85,17 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
                 onClick={getRoute}
                 width={400}
                 height={400}
-                alt={evolutions[currentIndex]?.name}
+                alt={evolutions[currentIndex]?.name ?? pokemon.name}
                 title={pokemon.id === evolutions[currentIndex]?.id ?? pokemon.id ? '' : evolutions[currentIndex]?.name ?? ''}
             />
             {loading ?
-                <Skeleton
+                <FabSkeleton
+                    theme={theme}
                     variant='circular'
                     width={40}
-                    height={40} />
+                    height={40}
+                    position='right'
+                />
                 :
                 <FabStyle
                     theme={theme}

@@ -4,15 +4,16 @@ const withPWA = require('next-pwa')({
   register: true,
   runtimeCaching: [
     {
-      urlPattern: /^https:\/\/pokeapi.co\/api\/v2\/.*/,
+      urlPattern: /^https:\/\/pokeapi\.co\/api\/v2\/.*/,
       handler: 'StaleWhileRevalidate',
       options: {
-        cacheName: 'pokeapi',
+        cacheName: 'pokeapi-cache',
         expiration: {
           maxEntries: 50,
-          maxAgeSeconds: 24 * 60 * 60 // 24 hours
-        }
-      }
+          maxAgeSeconds: 24 * 60 * 60, // 24 horas
+        },
+        navigationPreload: true,
+      },
     },
     {
       urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/i,

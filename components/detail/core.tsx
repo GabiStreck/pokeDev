@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styled from '@emotion/styled'
 import { Theme } from '@mui/material/styles';
-import { Container, Fab, List, ListItem, Paper, Tab, Typography } from '@mui/material';
+import { Container, Fab, List, ListItem, Paper, Tab, Typography, Skeleton } from '@mui/material';
 
 
 interface MainGradientContainerProps {
@@ -132,5 +132,14 @@ export const FabStyle = styled(Fab)(({ theme, position }: { theme: Theme, positi
         position: absolute;
         ${position}: 7%;
         bottom: 40px;
+    }
+`);
+
+export const FabSkeleton = styled(Skeleton)(({ theme, position }: { theme: Theme, position: string }) => `
+    ${theme.breakpoints.only('xs')} {
+        position: absolute;
+        ${position}: 7%;
+        bottom: 40px;
+        z-index: 10;
     }
 `);
