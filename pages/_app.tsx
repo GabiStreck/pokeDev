@@ -9,13 +9,24 @@ import '@/styles/globals.css'
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme(isDarkMode)}>
         <CssBaseline />
         <Head>
           <title>PokeDev</title>
+
+          <meta
+            http-equiv="Content-Security-Policy"
+            content="
+              connect-src 'self' https://pokeapi.co/;
+              object-src 'none';
+              base-uri 'self';
+              form-action 'self'; 
+              block-all-mixed-content;
+              upgrade-insecure-requests;
+            "
+          />
           <meta name='description' content='Created by Gabriel Streck' />
           <link rel='icon' href='/favicon.ico' />
           <meta name="viewport" content="width=device-width, initial-scale=1" />

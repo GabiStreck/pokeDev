@@ -53,4 +53,5 @@ module.exports = withPWA({
     domains: ['raw.githubusercontent.com'],
   },
   output: 'standalone',
+
 });

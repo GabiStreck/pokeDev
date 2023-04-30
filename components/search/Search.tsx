@@ -40,8 +40,8 @@ function Search() {
                 <PokemonImage
                     src='/images/logo-pokedev.png'
                     alt='logo pokedev'
-                    width={247}
-                    height={89}
+                    width={247.5}
+                    height={86}
                 />
                 <SearchBoxContainer
                     theme={theme}
