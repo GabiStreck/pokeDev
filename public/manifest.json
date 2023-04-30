@@ -6,7 +6,7 @@
   "start_url": "/",
   "name": "PokeDev",
   "short_name": "PokeDev",
-  "description": "Pokemons details",
+  "description": "Pokemons",
   "prefer_related_applications": true,
   "icons": [
     {

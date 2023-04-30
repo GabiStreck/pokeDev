@@ -4,15 +4,14 @@ const withPWA = require('next-pwa')({
   register: true,
   runtimeCaching: [
     {
-      urlPattern: /^https:\/\/pokeapi\.co\/api\/v2\/.*/,
+      urlPattern: /^https:\/\/pokeapi.co\/api\/v2\/.*/,
       handler: 'StaleWhileRevalidate',
       options: {
-        cacheName: 'pokeapi-cache',
+        cacheName: 'pokeapi',
         expiration: {
           maxEntries: 50,
-          maxAgeSeconds: 24 * 60 * 60, // 24 horas
-        },
-        navigationPreload: true,
+          maxAgeSeconds: 24 * 60 * 60 // 24 hours
+        }
       },
     },
     {
@@ -54,5 +53,4 @@ module.exports = withPWA({
     domains: ['raw.githubusercontent.com'],
   },
   output: 'standalone',
-
 });

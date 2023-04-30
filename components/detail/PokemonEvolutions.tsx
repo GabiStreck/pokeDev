@@ -23,10 +23,7 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
         const pokemonIndex = evolutions?.findIndex(poke => {
             return poke.name === pokemon.name;
         })
-
-        if (pokemonIndex !== currentIndex) {
-            setCurrentIndex(pokemonIndex)
-        }
+        if (pokemonIndex !== currentIndex) setCurrentIndex(pokemonIndex)
     }, [evolutions])
 
     const handlePrevClick = () => {
