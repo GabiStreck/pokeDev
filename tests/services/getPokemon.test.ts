@@ -1,4 +1,5 @@
 import { getApiUrl } from "@/config";
+import { PATHNAME_POKEMON } from "@/constants";
 import { getPokemon, getPokemons, getPokemonDetail } from "@/services/getPokemon";
 import { PokemonItem, PokemonList } from "@/types/pokemonList";
 import fetchMock from "jest-fetch-mock";
@@ -132,7 +133,7 @@ describe("Services: getPokemons", () => {
     test("Should fetch and return list of pokemons", async () => {
         const mockData: PokemonList = {
             count: 1281,
-            next: getApiUrl("pokemon?offset=3&limit=3"),
+            next: getApiUrl(`${PATHNAME_POKEMON}?offset=3&limit=3`),
             previous: null,
             pokemons: pokemons.slice(0, 3),
         };
@@ -145,8 +146,8 @@ describe("Services: getPokemons", () => {
     test("Should fetch and return list of pokemons with nextPageUrl", async () => {
         const mockData: PokemonList = {
             count: 1281,
-            next: getApiUrl("pokemon?offset=6&limit=3"),
-            previous: getApiUrl("pokemon?offset=0&limit=3"),
+            next: getApiUrl(`${PATHNAME_POKEMON}?offset=6&limit=3`),
+            previous: getApiUrl(`${PATHNAME_POKEMON}?offset=0&limit=3`),
             pokemons: pokemons.slice(3, 6),
         };
         fetchMock.mockResponseOnce(JSON.stringify(mockData));
@@ -154,7 +155,7 @@ describe("Services: getPokemons", () => {
         const result = await getPokemons({
             limit: 3,
             signal: null,
-            nextPageUrl: getApiUrl("pokemon?limit=3&offset=3"),
+            nextPageUrl: getApiUrl(`${PATHNAME_POKEMON}?limit=3&offset=3`),
         });
         expect(result).toEqual(mockData);
     });
@@ -191,7 +192,7 @@ describe("Services: getPokemonDetail", () => {
     });
 
     test("Should return a Pokemon  when I pass the url as a parameter", async () => {
-        const result = await getPokemonDetail({ url: getApiUrl("pokemon/1/") });
+        const result = await getPokemonDetail({ url: getApiUrl(`${PATHNAME_POKEMON}/1/`) });
         expect(typeof result).toEqual('object');
     });
 });
