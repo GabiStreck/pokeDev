@@ -1,46 +1,33 @@
+import { PokemonItem } from "@/types/pokemonList";
 import { getPokemon } from "./getPokemon";
-import { PokemonItem } from "@/types/pokemonList"
 
-export interface PokemonEvolution {
-    id: number;
-    name: string;
-    image: string;
+export interface PokemonEvolution extends PokemonItem {
     genre: number;
 }
 
-export async function getEvolutionChain({ url, id }: { url: string, id: string | number }): Promise<PokemonEvolution[]> {
+export async function getEvolutionChain(url: string): Promise<PokemonEvolution[]> {
+    const pokemonSpeciesResponse = await fetch(url);
+    const pokemonSpeciesData = await pokemonSpeciesResponse.json();
+    const evolutionChainResponse = await fetch(pokemonSpeciesData.evolution_chain.url);
+    const evolutionChainData = await evolutionChainResponse.json();
+
     const pokemonEvolutions: PokemonEvolution[] = [];
-    try {
-        const pokemonSpeciesResponse = await fetch(url);
-        const pokemonSpeciesData = await pokemonSpeciesResponse.json();
-        const evolutionChainResponse = await fetch(pokemonSpeciesData.evolution_chain.url);
-        const evolutionChainData = await evolutionChainResponse.json();
+    let currentEvolutions = evolutionChainData.chain;
 
-        let currentEvolutions = evolutionChainData.chain;
+    while (currentEvolutions) {
+        const speciesUrl = currentEvolutions.species.url;
+        if (!speciesUrl) break
+        const speciesResponse = await fetch(speciesUrl);
+        const speciesData = await speciesResponse?.json();
+        if (speciesData) {
+            const pokemonData = await getPokemon({ id: speciesData.id })
 
-        while (currentEvolutions) {
-            const speciesUrl = currentEvolutions.species.url;
-            if (!speciesUrl) break
-            const speciesResponse = await fetch(speciesUrl);
-            const speciesData = await speciesResponse?.json();
-            if (speciesData)
-
-                try {
-                    const pokemon: PokemonItem = await getPokemon({ id: speciesData.id })
-                    pokemonEvolutions.push({
-                        id: speciesData.id,
-                        name: pokemon.name,
-                        image: pokemon.image,
-                        genre: speciesData.gender_rate,
-                    });
-                } catch (err) {
-                    console.log(err)
-                }
-            currentEvolutions = currentEvolutions.evolves_to[0];
+            pokemonEvolutions.push({
+                ...pokemonData,
+                genre: speciesData.gender_rate,
+            });
         }
-
-    } catch (error) {
-        console.log(error);
+        currentEvolutions = currentEvolutions.evolves_to[0];
     }
 
     return pokemonEvolutions;
