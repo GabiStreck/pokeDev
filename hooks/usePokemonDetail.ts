@@ -12,7 +12,7 @@ const usePokemonDetail = (pokemon: Pokemon | undefined | null) => {
         if (!pokemon) return
         setLoading(true)
         try {
-            const evolution = await getEvolutionChain({ id: pokemon.id, url: pokemon.species.url })
+            const evolution = await getEvolutionChain({ url: pokemon.species.url })
             const evolutions = evolution.length > 0 ? evolution : [];
             const pokemonSpecie = evolutions?.find(item => item.name === pokemon.name)
             if (pokemonSpecie) {
