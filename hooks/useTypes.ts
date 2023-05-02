@@ -22,8 +22,12 @@ const useTypes = () => {
                 setLoading(true)
                 const typesData = await getTypes(params)
                 if (typesData) {
-                    setTypes(typesData)
-                    setValue(typesData)
+                    const typesSorted = typesData.sort((a, b) => {
+                        if (a.name < b.name) return -1
+                        return 1
+                    })
+                    setTypes(typesSorted)
+                    setValue(typesSorted)
                 }
             }
         } catch (error) {

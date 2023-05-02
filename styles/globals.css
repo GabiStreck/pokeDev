@@ -4,6 +4,12 @@ body {
   margin: 0;
 }
 
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
+}
+
 *::-webkit-scrollbar-track {
   border-radius: 0.625rem;
   background-color: #f8f8f8;

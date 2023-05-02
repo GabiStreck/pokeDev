@@ -1,36 +1,46 @@
+import { getPokemon } from "./getPokemon";
+import { PokemonItem } from "@/types/pokemonList"
 
 export interface PokemonEvolution {
-    id: string;
+    id: number;
     name: string;
     image: string;
-    imageDefault: string;
     genre: number;
 }
 
-export async function getEvolutionChain(url: string): Promise<PokemonEvolution[]> {
-    const pokemonSpeciesResponse = await fetch(url);
-    const pokemonSpeciesData = await pokemonSpeciesResponse.json();
-    const evolutionChainResponse = await fetch(pokemonSpeciesData.evolution_chain.url);
-    const evolutionChainData = await evolutionChainResponse.json();
-
+export async function getEvolutionChain({ url, id }: { url: string, id: string | number }): Promise<PokemonEvolution[]> {
     const pokemonEvolutions: PokemonEvolution[] = [];
-    let currentEvolutions = evolutionChainData.chain;
+    try {
+        const pokemonSpeciesResponse = await fetch(url);
+        const pokemonSpeciesData = await pokemonSpeciesResponse.json();
+        const evolutionChainResponse = await fetch(pokemonSpeciesData.evolution_chain.url);
+        const evolutionChainData = await evolutionChainResponse.json();
 
-    while (currentEvolutions) {
-        const speciesUrl = currentEvolutions.species.url;
-        if (!speciesUrl) break
-        const speciesResponse = await fetch(speciesUrl);
-        const speciesData = await speciesResponse?.json();
-        if (speciesData)
-            pokemonEvolutions.push({
-                id: speciesData.id,
-                name: speciesData.name,
-                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${speciesData.id}.svg`,
-                imageDefault: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/${speciesData.id}.png`,
-                genre: speciesData.gender_rate,
-            });
+        let currentEvolutions = evolutionChainData.chain;
 
-        currentEvolutions = currentEvolutions.evolves_to[0];
+        while (currentEvolutions) {
+            const speciesUrl = currentEvolutions.species.url;
+            if (!speciesUrl) break
+            const speciesResponse = await fetch(speciesUrl);
+            const speciesData = await speciesResponse?.json();
+            if (speciesData)
+
+                try {
+                    const pokemon: PokemonItem = await getPokemon({ id: speciesData.id })
+                    pokemonEvolutions.push({
+                        id: speciesData.id,
+                        name: pokemon.name,
+                        image: pokemon.image,
+                        genre: speciesData.gender_rate,
+                    });
+                } catch (err) {
+                    console.log(err)
+                }
+            currentEvolutions = currentEvolutions.evolves_to[0];
+        }
+
+    } catch (error) {
+        console.log(error);
     }
 
     return pokemonEvolutions;

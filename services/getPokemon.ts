@@ -25,6 +25,7 @@ export const getPokemons = async ({ limit, signal, nextPageUrl }: PokemonsListPa
 
 export const getPokemon = async ({ id, signal, url }: PokemonParams)
     : Promise<PokemonItem> => {
+
     const pokemonUrl = url ? url : `${BASE_URL}/${id}`
     const pokemonResponse = await fetch(pokemonUrl, { signal });
 
@@ -38,7 +39,6 @@ export const getPokemon = async ({ id, signal, url }: PokemonParams)
         types: pokemonData.types
     };
 }
-
 
 
 export const getPokemonDetail = async ({ id, signal, url }: PokemonParams)

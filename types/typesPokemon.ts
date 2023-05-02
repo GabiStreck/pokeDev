@@ -76,11 +76,11 @@ export interface Language {
 }
 
 export interface Pokemon {
-    pokemon: Pokemon2
+    pokemon: PokemonTypeDetail
     slot: number
 }
 
-export interface Pokemon2 {
+export interface PokemonTypeDetail {
     name: string
     url: string
 }

@@ -10,10 +10,10 @@ import AboutInfo from './AboutInfo'
 
 interface Props {
     pokemon: Pokemon;
-    genres: GenresResponse
+    genre: string
 }
 
-const PokemonTabContainer: FC<Props> = ({ pokemon, genres }) => {
+const PokemonTabContainer: FC<Props> = ({ pokemon, genre }) => {
     const [value, setValue] = useState<number>(0);
 
     const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -21,7 +21,7 @@ const PokemonTabContainer: FC<Props> = ({ pokemon, genres }) => {
     };
 
     const items: { [key: string]: ReactNode } = {
-        "About": <AboutInfo pokemon={pokemon} genres={genres} />,
+        "About": <AboutInfo pokemon={pokemon} genre={genre} />,
         "Abilities": <AbilitiesInfo abilities={pokemon.abilities} />,
         "Stats": <StatsInfo stats={pokemon.stats} />
     }
