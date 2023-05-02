@@ -3,7 +3,6 @@ import { PATHNAME_TYPE } from "@/constants";
 import { getType, getTypes } from "@/services/getTypes";
 import { Result } from "@/types/pokemonList";
 import { TypeResponse } from "@/types/typesPokemon";
-import fetchMock from "jest-fetch-mock";
 
 describe("Services: getTypes", () => {
     test("Fetches a types and returns its list of types", async () => {
