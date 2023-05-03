@@ -8,7 +8,7 @@ describe("Hooks: useGenres", () => {
         fetchMock.resetMocks();
     });
 
-    it("Should return the genre with the correct parameters", async () => {
+    test("Should return the genre with the correct parameters", async () => {
         const mockGenresData: GenresResponse = {
             id: 1,
             name: "male",
@@ -26,14 +26,14 @@ describe("Hooks: useGenres", () => {
         expect(result.current.genres?.name).toEqual(mockGenresData.name);
     });
 
-    it("Does not fetch genres data when no genre is provided", async () => {
+    test("Does not fetch genres data when no genre is provided", async () => {
         const { result } = renderHook(() => useGenres(""));
         expect(result.current.loading).toBe(false);
         expect(result.current.genres).toBeNull();
         expect(fetchMock).not.toHaveBeenCalled();
     });
 
-    it("Should return null when wrong data is provided", async () => {
+    test("Should return null when wrong data is provided", async () => {
         const errorMessage = "Error fetching genres data";
         fetchMock.mockReject(new Error(errorMessage));
         const { result } = renderHook(() =>
