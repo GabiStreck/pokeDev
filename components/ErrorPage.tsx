@@ -25,7 +25,7 @@ const ErrorPage: FC<Props> = ({ toggleDarkMode }) => {
                     width={200}
                     height={265}
                     alt='Error Page'
-                    loading="lazy"
+                    loading='lazy'
                 />
                 <Typography variant='h3' textAlign='center'>Oops!</Typography>
                 <Typography textAlign='center'>

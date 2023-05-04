@@ -8,7 +8,7 @@ export interface PokemonEvolution {
     genre: number;
 }
 
-export async function getEvolutionChain({ url, id }: { url: string, id: string | number }): Promise<PokemonEvolution[]> {
+export async function getEvolutionChain({ url }: { url: string }): Promise<PokemonEvolution[]> {
     const pokemonEvolutions: PokemonEvolution[] = [];
     try {
         const pokemonSpeciesResponse = await fetch(url);
@@ -28,7 +28,7 @@ export async function getEvolutionChain({ url, id }: { url: string, id: string |
                 try {
                     const pokemon: PokemonItem = await getPokemon({ id: speciesData.id })
                     pokemonEvolutions.push({
-                        id: speciesData.id,
+                        id: pokemon.id,
                         name: pokemon.name,
                         image: pokemon.image,
                         genre: speciesData.gender_rate,

@@ -17,7 +17,7 @@ const PokemonsFilterEmpty = () => {
                 width={80}
                 height={90}
                 alt='No Data'
-                loading="lazy"
+                loading='lazy'
             />
             <Typography textAlign='center'>
                 {"Sorry, I think the Pokémon have escaped or do not exist with that search combination. Try searching with other filters!"}

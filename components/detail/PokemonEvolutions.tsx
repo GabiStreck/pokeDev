@@ -81,7 +81,7 @@ const PokemonEvolutions: FC<PokemonEvolutionsProps> = ({ evolutions = [], pokemo
                 }}
                 onClick={getRoute}
                 width={400}
-                loading="lazy"
+                loading='lazy'
                 height={400}
                 alt={evolutions[currentIndex]?.name ?? pokemon.name}
                 title={pokemon.id === evolutions[currentIndex]?.id ?? pokemon.id ? '' : evolutions[currentIndex]?.name ?? ''}
